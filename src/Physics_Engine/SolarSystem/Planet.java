@@ -1,4 +1,4 @@
 package src.Physics_Engine.SolarSystem;
 
-public class test {
+public class Planet {
 }
