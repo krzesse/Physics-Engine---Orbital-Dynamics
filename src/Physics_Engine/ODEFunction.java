@@ -1,4 +1,4 @@
-package src.Physics_Engine.SolarSystem;
+package src.Physics_Engine;
 
 public interface ODEFunction {
 

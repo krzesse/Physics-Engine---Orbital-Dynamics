@@ -1,8 +1,16 @@
 package src.Physics_Engine.SolarSystem;
 
+import src.Physics_Engine.ODEFunction;
+
 import java.util.Arrays;
 
 public class Adams_Bashforth_Solver {
+
+
+    public Adams_Bashforth_Solver(){
+
+    }
+
     public static double[] AB4(double h, double[] t, double[] x, ODEFunction function){
         double[][] history = new double[t.length][x.length];
 

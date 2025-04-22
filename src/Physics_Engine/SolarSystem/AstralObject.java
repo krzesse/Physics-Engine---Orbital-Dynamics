@@ -1,6 +1,6 @@
 package src.Physics_Engine.SolarSystem;
 
-public class Planet {
+public class AstralObject {
 
     /**
      *This class allows us to retrieve the values from Planet
@@ -14,7 +14,6 @@ public class Planet {
     private double Vz;
 
     private double Mass;
-    private double GForce;
 
 
     /**
@@ -26,9 +25,8 @@ public class Planet {
      * @param Vy - velocity in the y direction
      * @param Vz - velocity in the z direction
      * @param Mass - the size of the planet of asteroid
-     * @param GForce - the gravitational force
      */
-    public Planet(double x , double y , double z , double Vx, double Vy, double Vz , double Mass , double GForce){
+    public AstralObject(double x , double y , double z , double Vx, double Vy, double Vz , double Mass){
         this.x = x;
         this.y = y;
         this.z = z;
@@ -37,7 +35,6 @@ public class Planet {
         this.Vz = Vz;
 
         this.Mass = Mass;
-        this.GForce = GForce;
 
     }
 
@@ -63,8 +60,14 @@ public class Planet {
     public double getMass(){
         return Mass;
     }
-    public double getGForce(){
-        return GForce;
+
+    public double[] getCoordinates(){
+        double[] coordinates = {x ,y ,z };
+        return coordinates;
+    }
+    public double[] getVelocities(){
+        double[] velocities = {Vx , Vy , Vz};
+        return  velocities;
     }
 
 }
