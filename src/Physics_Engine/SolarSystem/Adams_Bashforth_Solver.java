@@ -11,7 +11,7 @@ public class Adams_Bashforth_Solver {
 
     }
 
-    public static double[] AB4(double h, double[] t, double[] x, ODEFunction function){
+    public double[] AB4(double h, double[] t, double[] x, ODEFunction function){
         double[][] history = new double[t.length][x.length];
 
         //Bootstraping first using classical fourth order Runge-Kuntta method
@@ -61,4 +61,5 @@ public class Adams_Bashforth_Solver {
         //Return the final stage, approximated value x at final time step
         return x;
     }
+
 }
