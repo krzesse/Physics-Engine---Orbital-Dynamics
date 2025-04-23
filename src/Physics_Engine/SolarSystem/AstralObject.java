@@ -61,6 +61,11 @@ public class AstralObject {
         double[] coordinates = {x ,y ,z };
         return coordinates;
     }
+    public double[] getVelocities(){
+        double[] velocities = {Vx ,Vy ,Vz };
+        return velocities;
+    }
+
     public void setVelocities(double[] newV){
        Vx = newV[0];
        Vy = newV[1];

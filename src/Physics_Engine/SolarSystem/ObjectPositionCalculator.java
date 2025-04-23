@@ -18,17 +18,23 @@ public class ObjectPositionCalculator {
 
         for(int i = 0 ; i<solarSystem.size() ; i++){
             SpeedFunction function = new SpeedFunction(solarSystem , i);
+
+            // creates a copy of the object such that I don't change any of the positions of the other planets
             AstralObject currentAObject = new AstralObject(0,0,0,0,0,0,0);
             currentAObject.copyAstralObject(solarSystem.get(i));
 
             Adams_Bashforth_Solver solver = new Adams_Bashforth_Solver();
 
-            double[] newSpeed = function.computeDerivative(x,1);
-            double[] coordinates = solver.AB4(stepSize , t , newSpeed,function);
 
-            currentAObject.setVelocities(newSpeed);
+            // gets current speedValues to use in the function and calculatest the function of the
+            double[] speedValues = currentAObject.getVelocities();
+            double[] speedCoordinates = solver.AB4(stepSize , t , speedValues,function);
+
+            double[] planetSpeedComponent = currentAObject.getVelocities() ;
+            double[] coordinates = solver.AB4(stepSize , t , planetSpeedComponent , function );
+
+            currentAObject.setVelocities(speedCoordinates);
             currentAObject.setCoordinates(coordinates);
-
             tempSolarSystem.add(currentAObject);
 
 

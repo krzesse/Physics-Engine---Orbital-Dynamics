@@ -19,7 +19,7 @@ public class SpeedFunction implements ODEFunction {
     @Override
     public double[] computeDerivative(double[] x, double t) {
         double[] answer = new double[3];
-        double[] GForce = getForce();
+        double[] GForce = getForce(x);
 
         AstralObject targetObject = solarSystem.get(index);
         double mass = targetObject.getMass();
@@ -33,11 +33,11 @@ public class SpeedFunction implements ODEFunction {
         return answer;
     }
 
-    public double[] getForce() {
+    public double[] getForce(double[] x) {
         double[] GForce = new double[3];
 
         AstralObject targetAstralObject = solarSystem.get(index);
-        double[] targetCoordinates = targetAstralObject.getCoordinates();
+        double[] targetCoordinates = x;// I did this such that i didn't have to change the name of it
 
         for(int i =0 ; i<GForce.length ; i++) {
             for (int j = 0; j < solarSystem.size(); j++) {
@@ -58,6 +58,7 @@ public class SpeedFunction implements ODEFunction {
                              *((targetCoordinates[i]-currentCoordinates[i]) / Math.pow(magnitude,3));
 
             }
+            GForce[i] = -1*GForce[i];
         }
         return  GForce;
     }
