@@ -9,6 +9,7 @@ public class Trajectories {
 
     private ArrayList<AstralObject> solarSystem ;
 
+    //THIS IS WRONG
     public Trajectories(ArrayList<AstralObject> solarSystem){
         this.solarSystem = solarSystem;
 

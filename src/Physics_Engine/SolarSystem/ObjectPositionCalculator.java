@@ -28,10 +28,10 @@ public class ObjectPositionCalculator {
 
             // gets current speedValues to use in the function and calculatest the function of the
             double[] speedValues = currentAObject.getVelocities();
-            double[] speedCoordinates = solver.AB4(stepSize , t , speedValues,speedFunction);
+            double[] speedCoordinates = solver.AB4(stepSize , t , speedValues, speedFunction);
 
-            double[] planetSpeedComponent = currentAObject.getVelocities() ;
-            double[] coordinates = solver.AB4(stepSize , t , planetSpeedComponent , coordinateFunction );
+            double[] planetCoordinates = currentAObject.getCoordinates() ;
+            double[] coordinates = solver.AB4(stepSize , t , planetCoordinates , coordinateFunction );
 
             currentAObject.setVelocities(speedCoordinates);
             currentAObject.setCoordinates(coordinates);
@@ -42,6 +42,8 @@ public class ObjectPositionCalculator {
         }
         solarSystem.clear();
         solarSystem.addAll(tempSolarSystem);
+
+        //i need to return something !!!
 
     }
 }
