@@ -18,7 +18,7 @@ public class SpeedFunction implements ODEFunction {
 
     @Override
     public double[] computeDerivative(double[] x, double t) {
-        double[] answer = new double[3];
+        double[] velocity = new double[3];
         double[] GForce = getForce(x);
 
         AstralObject targetObject = solarSystem.get(index);
@@ -26,11 +26,11 @@ public class SpeedFunction implements ODEFunction {
 
         int i = 0;
         for(double force : GForce){
-            answer[i] = force/mass;
+            velocity[i] = (force/mass)*t;
             i++;
         }
 
-        return answer;
+        return velocity;
     }
 
     public double[] getForce(double[] x) {

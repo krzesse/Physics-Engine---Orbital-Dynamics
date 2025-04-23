@@ -14,10 +14,10 @@ public class ObjectPositionCalculator {
 
     public void getNextStep(ArrayList<AstralObject> solarSystem , double[] step){
         double[] t  = step;
-        double[] x = new double[3]; // needs to be there for the interface
 
         for(int i = 0 ; i<solarSystem.size() ; i++){
-            SpeedFunction function = new SpeedFunction(solarSystem , i);
+            SpeedFunction speedFunction = new SpeedFunction(solarSystem , i);
+            CoordinateFunction coordinateFunction = new CoordinateFunction();
 
             // creates a copy of the object such that I don't change any of the positions of the other planets
             AstralObject currentAObject = new AstralObject(0,0,0,0,0,0,0);
@@ -28,10 +28,10 @@ public class ObjectPositionCalculator {
 
             // gets current speedValues to use in the function and calculatest the function of the
             double[] speedValues = currentAObject.getVelocities();
-            double[] speedCoordinates = solver.AB4(stepSize , t , speedValues,function);
+            double[] speedCoordinates = solver.AB4(stepSize , t , speedValues,speedFunction);
 
             double[] planetSpeedComponent = currentAObject.getVelocities() ;
-            double[] coordinates = solver.AB4(stepSize , t , planetSpeedComponent , function );
+            double[] coordinates = solver.AB4(stepSize , t , planetSpeedComponent , coordinateFunction );
 
             currentAObject.setVelocities(speedCoordinates);
             currentAObject.setCoordinates(coordinates);
