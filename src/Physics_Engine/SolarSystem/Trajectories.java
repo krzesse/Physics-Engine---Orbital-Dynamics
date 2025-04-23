@@ -18,9 +18,14 @@ public class Trajectories {
         ArrayList<ArrayList<Double>> trajectories = new ArrayList<>();
         ObjectPositionCalculator positionCalculator = new ObjectPositionCalculator(stepSize);
 
-        double[] time = getTimeArray(0,stepSize);
+        double[][] time = getTimeArray(0,stepSize);
 
         for(int i = 0 ; i<time.length ; i++){
+
+            if(i==time.length-1){
+                time = getTimeArray((int)time[i+1][0] , stepSize);
+            }
+
             positionCalculator.getNextStep(solarSystem,time[i]);
             System.out.println(Arrays.toString(solarSystem.get(3).getCoordinates()));
         }
@@ -28,7 +33,7 @@ public class Trajectories {
         return trajectories ;
     }
 
-    public double[] getTimeArray(int currentTime , double stepSize){
+    public double[][] getTimeArray(int currentTime , double stepSize){
         double value = 2;
 
         //such that we don't increase to infinity each time because it scales pretty quickly to amortize
@@ -39,10 +44,13 @@ public class Trajectories {
             value = 2;
         }
 
-        double[] time = new double[(int)(currentTime*value) +10];
+        double[][] time = new double[(int)(currentTime*value) +10][3];
 
         for(int i = currentTime; i<currentTime*value+10 ; i++){
-            time[i] = i*stepSize;
+            for(int j = 0 ; j<3 ; j++){
+                time[i][j] = i*stepSize;
+
+            }
         }
 
         return time;

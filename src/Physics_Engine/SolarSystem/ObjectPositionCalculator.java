@@ -6,15 +6,15 @@ import java.util.ArrayList;
 public class ObjectPositionCalculator {
 
     private double stepSize;
-    private  ArrayList<AstralObject> tempSolarSystem;
+    private  ArrayList<AstralObject> tempSolarSystem = new ArrayList<>();
 
     public ObjectPositionCalculator(double stepSize){
         this.stepSize = stepSize;
     }
 
-    public void getNextStep(ArrayList<AstralObject> solarSystem , double step){
-        double[] t  = new double[]{step};
-        double[] x = new double[]{0}; // needs to be there for the interface
+    public void getNextStep(ArrayList<AstralObject> solarSystem , double[] step){
+        double[] t  = step;
+        double[] x = new double[3]; // needs to be there for the interface
 
         for(int i = 0 ; i<solarSystem.size() ; i++){
             SpeedFunction function = new SpeedFunction(solarSystem , i);
@@ -24,7 +24,7 @@ public class ObjectPositionCalculator {
             Adams_Bashforth_Solver solver = new Adams_Bashforth_Solver();
 
             double[] newSpeed = function.computeDerivative(x,1);
-            double[] coordinates = solver.AB4(stepSize , t , x,function);
+            double[] coordinates = solver.AB4(stepSize , t , newSpeed,function);
 
             currentAObject.setVelocities(newSpeed);
             currentAObject.setCoordinates(coordinates);
