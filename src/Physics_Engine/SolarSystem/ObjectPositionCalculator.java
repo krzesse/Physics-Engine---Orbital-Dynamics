@@ -12,10 +12,14 @@ public class ObjectPositionCalculator {
         this.stepSize = stepSize;
     }
 
-    public void getNextStep(ArrayList<AstralObject> solarSystem , double[] step){
+    // we want to update all the plant one step , so this method updates all objects by one step at a time
+    public ArrayList<AstralObject> getNextStep(ArrayList<AstralObject> solarSystem , double[] step){
         double[] t  = step;
 
-        for(int i = 0 ; i<solarSystem.size() ; i++){
+        // we calculate the next step for each individual planet , which will inevitable give certain errors
+        // it starts at 1 because the sun shouldn't move
+        for(int i = 1 ; i<solarSystem.size() ; i++){
+
             SpeedFunction speedFunction = new SpeedFunction(solarSystem , i);
             CoordinateFunction coordinateFunction = new CoordinateFunction();
 
@@ -26,24 +30,24 @@ public class ObjectPositionCalculator {
             Adams_Bashforth_Solver solver = new Adams_Bashforth_Solver();
 
 
-            // gets current speedValues to use in the function and calculatest the function of the
-            double[] speedValues = currentAObject.getVelocities();
-            double[] speedCoordinates = solver.AB4(stepSize , t , speedValues, speedFunction);
-
+            // gets current coordinate to use in the function such that we can calculate the gforce for out speedfunction
             double[] planetCoordinates = currentAObject.getCoordinates() ;
-            double[] coordinates = solver.AB4(stepSize , t , planetCoordinates , coordinateFunction );
+            double[] UpdatedSpeedCoordinates = solver.AB4(stepSize , t , planetCoordinates, speedFunction);
 
-            currentAObject.setVelocities(speedCoordinates);
+            // we need the previous speed values for each plane
+            double[] speedCoordinates  = currentAObject.getVelocities();
+            double[] coordinates = solver.AB4(stepSize , t , speedCoordinates , coordinateFunction );
+
+            currentAObject.setVelocities(UpdatedSpeedCoordinates);
             currentAObject.setCoordinates(coordinates);
-            tempSolarSystem.add(currentAObject);
-
+            tempSolarSystem.add (currentAObject);
 
 
         }
+
         solarSystem.clear();
         solarSystem.addAll(tempSolarSystem);
-
-        //i need to return something !!!
-
+        // such that i can save these values in a large arrayList
+        return solarSystem ;
     }
 }

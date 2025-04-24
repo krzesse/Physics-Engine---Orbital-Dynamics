@@ -11,6 +11,7 @@ public class Adams_Bashforth_Solver {
 
     }
 
+    // the thing is that X has Three value for each dimensions and three of each for each t . DOes this take into account ??
     public double[] AB4(double h, double[] t, double[] x, ODEFunction function){
         double[][] history = new double[t.length][x.length];
 

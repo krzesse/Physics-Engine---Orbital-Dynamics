@@ -10,15 +10,19 @@ public class SpeedFunction implements ODEFunction {
     private int  index ;
     private double Gconstant = 6.67430E-11;
 
+
+    // takes in an array of AstralObject and the index of the current planet with want to calculate the speed on
     public SpeedFunction(ArrayList<AstralObject> solarSystem , int index){
         this.solarSystem = solarSystem ;
         this.index = index ;
     }
 
 
+
+    // takes in the coordinates of the current planet with which it calculates the acceleration
     @Override
     public double[] computeDerivative(double[] x, double t) {
-        double[] velocity = new double[3];
+        double[] acceleration = new double[3];
         double[] GForce = getForce(x);
 
         AstralObject targetObject = solarSystem.get(index);
@@ -26,13 +30,14 @@ public class SpeedFunction implements ODEFunction {
 
         int i = 0;
         for(double force : GForce){
-            velocity[i] = (force/mass)*t;
+            acceleration[i] = (force/mass);
             i++;
         }
 
-        return velocity;
+        return acceleration;
     }
 
+    // takes in the position of the current planet and calculates the gravitational force for each plane
     public double[] getForce(double[] x) {
         double[] GForce = new double[3];
 
@@ -53,7 +58,7 @@ public class SpeedFunction implements ODEFunction {
                 double currentObjectMass = currentAObject.getMass();
                 double magnitude = getVectorMagnitude(targetCoordinates, currentCoordinates);
 
-
+                // uses the formula for each planet with respect to the target planet
                 GForce[i] += Gconstant * targetObjectMass * currentObjectMass
                              *((targetCoordinates[i]-currentCoordinates[i]) / Math.pow(magnitude,3));
 
@@ -63,6 +68,8 @@ public class SpeedFunction implements ODEFunction {
         return  GForce;
     }
 
+
+    // takes in effectively the 3D pythagoras of the vector position of the target planet vs the current planet
     private double getVectorMagnitude(double[] targetAValues , double[] currentAValues){
         double solution = 0 ;
         double sum = 0;
