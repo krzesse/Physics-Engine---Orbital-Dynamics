@@ -35,8 +35,8 @@ public class Main {
         solarSystem.add(Uranus);
         solarSystem.add(Neptune);
 
-        ObjectPositionCalculator calculator  = new ObjectPositionCalculator(0.1) ;
-        double [] step = {0.3,0.4,0.5 };
+        ObjectPositionCalculator calculator  = new ObjectPositionCalculator(0.01) ;
+        double [] step = {0.1,0.2,0.3 };
         System.out.println(calculator.getNextStep(solarSystem , step));
 
     }
