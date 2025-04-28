@@ -64,7 +64,7 @@ public class AstralObject {
         return Mass;
     }
 
-    public double[][] getCoordinates(int j ){
+    public double[][] getSpecificCoordinates(int j ){
         double[][] coordinates = new double[j][3];
         double length  = pastCoordinates.size() ;
 
@@ -72,9 +72,13 @@ public class AstralObject {
             coordinates[i] = pastCoordinates.get((int)length-i).getCoordinates() ;
         }
 
-
         return coordinates ;
     }
+
+    public double[] getLastCoordinate(){
+        return pastCoordinates.getLast().getCoordinates();
+    }
+
     public double[] getVelocities(){
         double[] velocities = {Vx ,Vy ,Vz };
         return velocities;

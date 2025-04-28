@@ -52,7 +52,7 @@ public class SpeedFunction implements ODEFunction {
                 }
 
                 AstralObject currentAObject = solarSystem.get(j);
-                double[] currentCoordinates = currentAObject.getCoordinates(1);
+                double[] currentCoordinates = currentAObject.getLastCoordinate();
 
                 double targetObjectMass = targetAstralObject.getMass();
                 double currentObjectMass = currentAObject.getMass();
