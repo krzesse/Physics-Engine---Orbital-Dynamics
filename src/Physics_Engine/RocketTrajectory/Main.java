@@ -5,6 +5,7 @@ import src.Physics_Engine.SolarSystem.ObjectPositionCalculator;
 import src.Physics_Engine.SolarSystem.Trajectories;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicStampedReference;
 
 public class Main {
@@ -35,9 +36,13 @@ public class Main {
         solarSystem.add(Uranus);
         solarSystem.add(Neptune);
 
-        ObjectPositionCalculator calculator  = new ObjectPositionCalculator(0.01) ;
-        double [] step = {0.1,0.2,0.3 };
-        System.out.println(calculator.getNextStep(solarSystem , step));
+
+        double[] time = new double[100];
+        for(int i =  0 ; i< time.length ; i++){
+            time[i] = i*0.1;
+        }
+        ObjectPositionCalculator calculator  = new ObjectPositionCalculator(0.1) ;
+        System.out.println(calculator.getNextStep(solarSystem , time));
 
     }
 }
