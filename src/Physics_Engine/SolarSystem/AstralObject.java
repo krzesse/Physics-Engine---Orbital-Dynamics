@@ -17,6 +17,7 @@ public class AstralObject {
 
 
     private ArrayList<Coordinate> pastCoordinates  ;
+    private ArrayList<Velocities> pastVelocities   ;
 
     private double Mass;
 
@@ -42,28 +43,59 @@ public class AstralObject {
         this.Mass = Mass;
 
         this.pastCoordinates =new ArrayList<>() ;
+        this.pastVelocities = new ArrayList<>() ;
 
     }
 
-
-    public double getX(){return x;}
-    public double getY(){return y; }
-    public double getZ(){
-        return z;
-    }
-    public double getVx(){
-        return Vx;
-    }
-    public double getVy(){
-        return Vy;
-    }
-    public double getVz(){
-        return Vz;
-    }
     public double getMass(){
         return Mass;
     }
 
+
+
+
+
+    // returns the previous velocities
+    public double[][] getSpecificVelocities(int j ){
+        double[][] velocities = new double[j][3];
+        double length  = pastVelocities.size() ;
+
+        for(  int i = 0  ; i<j ; i++){
+            velocities[i] = pastVelocities.get((int)length-i).getVelocities() ;
+        }
+
+        return velocities ;
+    }
+
+    // sets the velocities of the new
+    public void setVelocities(double[] newV){
+       Vx = newV[0];
+       Vy = newV[1];
+       Vz = newV[2];
+    }
+    public ArrayList<Velocities> getAllVelocities(){
+        return pastVelocities;
+    }
+    public void addVelocities(Velocities velocities){
+        pastVelocities.add(velocities);
+    }
+
+
+    public void copyAstralObject(AstralObject other) {
+        this.pastCoordinates = other.getAllCoordinates();
+        this.pastVelocities = other.getAllVelocities() ;
+        this.Mass = other.Mass;
+        // Copy other fields if you have them
+    }
+    public void addCoordinate(Coordinate currentCoordinate){
+
+        pastCoordinates.add(currentCoordinate);
+    }
+    public ArrayList<Coordinate> getAllCoordinates(){
+
+        return pastCoordinates ;
+    }
+    // returns the last n values of the coordinate array
     public double[][] getSpecificCoordinates(int j ){
         double[][] coordinates = new double[j][3];
         double length  = pastCoordinates.size() ;
@@ -73,30 +105,6 @@ public class AstralObject {
         }
 
         return coordinates ;
-    }
-
-    public double[] getVelocities(){
-        double[] velocities = {Vx ,Vy ,Vz };
-        return velocities;
-    }
-    public void setVelocities(double[] newV){
-       Vx = newV[0];
-       Vy = newV[1];
-       Vz = newV[2];
-    }
-    public void copyAstralObject(AstralObject other) {
-        this.pastCoordinates = other.getAllCoordinates();
-        this.Vx = other.Vx;
-        this.Vy = other.Vy;
-        this.Vz = other.Vz;
-        this.Mass = other.Mass;
-        // Copy other fields if you have them
-    }
-    public void addCoordinate(Coordinate currentCoordinate){
-        pastCoordinates.add(currentCoordinate);
-    }
-    public ArrayList<Coordinate> getAllCoordinates(){
-        return pastCoordinates ;
     }
 
 
