@@ -75,10 +75,6 @@ public class AstralObject {
         return coordinates ;
     }
 
-    public double[] getLastCoordinate(){
-        return pastCoordinates.getLast().getCoordinates();
-    }
-
     public double[] getVelocities(){
         double[] velocities = {Vx ,Vy ,Vz };
         return velocities;

@@ -52,15 +52,15 @@ public class SpeedFunction implements ODEFunction {
                 }
 
                 AstralObject currentAObject = solarSystem.get(j);
-                double[] currentCoordinates = currentAObject.getLastCoordinate();
+                double[][] currentCoordinates = currentAObject.getSpecificCoordinates(1);
 
                 double targetObjectMass = targetAstralObject.getMass();
                 double currentObjectMass = currentAObject.getMass();
-                double magnitude = getVectorMagnitude(targetCoordinates, currentCoordinates);
+                double magnitude = getVectorMagnitude(targetCoordinates, currentCoordinates[0]);
 
                 // uses the formula for each planet with respect to the target planet
                 GForce[i] += Gconstant * targetObjectMass * currentObjectMass
-                             *((targetCoordinates[i]-currentCoordinates[i]) / Math.pow(magnitude,3));
+                             *((targetCoordinates[i]-currentCoordinates[0][i]) / Math.pow(magnitude,3));
 
             }
             GForce[i] = -1*GForce[i];
