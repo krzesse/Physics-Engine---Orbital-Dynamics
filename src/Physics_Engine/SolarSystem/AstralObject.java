@@ -1,5 +1,7 @@
 package src.Physics_Engine.SolarSystem;
 
+import java.util.*;
+
 public class AstralObject {
 
     /**
@@ -12,6 +14,9 @@ public class AstralObject {
     private double Vx;
     private double Vy;
     private double Vz;
+
+
+    private ArrayList<Coordinate> pastCoordinates  ;
 
     private double Mass;
 
@@ -36,6 +41,8 @@ public class AstralObject {
 
         this.Mass = Mass;
 
+        this.pastCoordinates =new ArrayList<>() ;
+
     }
 
 
@@ -58,34 +65,34 @@ public class AstralObject {
     }
 
     public double[] getCoordinates(){
-        double[] coordinates = {x ,y ,z };
+        double[] coordinates = pastCoordinates.getLast().getCoordinates();
+
         return coordinates;
     }
     public double[] getVelocities(){
         double[] velocities = {Vx ,Vy ,Vz };
         return velocities;
     }
-
     public void setVelocities(double[] newV){
        Vx = newV[0];
        Vy = newV[1];
        Vz = newV[2];
     }
-    public void setCoordinates(double[] newC){
-        x = newC[0];
-        y = newC[1];
-        z = newC[2];
-    }
     public void copyAstralObject(AstralObject other) {
-        this.x = other.x;
-        this.y = other.y;
-        this.z = other.z;
+        this.pastCoordinates = other.getAllCoordinates();
         this.Vx = other.Vx;
         this.Vy = other.Vy;
         this.Vz = other.Vz;
         this.Mass = other.Mass;
         // Copy other fields if you have them
     }
+    public void addCoordinate(Coordinate currentCoordinate){
+        pastCoordinates.add(currentCoordinate);
+    }
+    public ArrayList<Coordinate> getAllCoordinates(){
+        return pastCoordinates ;
+    }
+
 
 
 
